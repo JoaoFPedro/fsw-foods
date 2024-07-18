@@ -1,8 +1,16 @@
-import { Product } from "@prisma/client";
+import { Prisma, Product } from "@prisma/client";
 import Image from "next/image";
 
 interface ProductItemProps {
-  product: Product;
+  product: Prisma.ProductGetPayload <{
+    include:{
+      restaurant:{
+        select:{
+          name: true
+        }
+      }
+    }
+  }>;
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
@@ -18,7 +26,8 @@ const ProductItem = ({ product }: ProductItemProps) => {
       </div>
       <div>
         <h1>{product.name}</h1>
-        <p>{product.price}</p>
+        {/* <p>R${product.price}</p> */}
+        <p>{product.restaurant.name}</p>
       </div>
     </div>
   );
