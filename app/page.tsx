@@ -25,8 +25,10 @@ const Home = () => {
         sizes="100vw"
         quality={100}
       />
-
+      <div className="pt-3">
       <ProductList />
+      </div>
+      
     </>
   );
 };
