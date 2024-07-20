@@ -1,6 +1,7 @@
 import { Prisma, Product } from "@prisma/client";
 import Image from "next/image";
 import { calculatedProductTotalPrice, formatCurrency } from "../_helpers/price";
+import { ArrowDownIcon } from "lucide-react";
 
 interface ProductItemProps {
   product: Prisma.ProductGetPayload<{
@@ -24,6 +25,12 @@ const ProductItem = ({ product }: ProductItemProps) => {
           fill
           className="rounded-lg object-cover shadow-md"
         />
+        {product.discountPercentage && (
+          <div className="absolute left-1 top-1 rounded-full bg-primary px-2 py-[2px] flex items-center">
+            <ArrowDownIcon size={12}/>
+            <span className="font-semibold text-xs">{product.discountPercentage}%</span>
+          </div>
+        )}
       </div>
       <div>
         <h2 className="truncate text-sm">{product.name}</h2>
@@ -37,7 +44,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
             </span>
           )}
         </div>
-        <p className="text-muted-foreground">{product.restaurant.name}</p>
+        <p className="text-muted-foreground text-xs">{product.restaurant.name}</p>
       </div>
     </div>
   );
