@@ -5,6 +5,8 @@ import CategoryList from "./_components/category-list";
 import ProductList from "./_components/product-list";
 import { Button } from "./_components/ui/button";
 import { ChevronRight } from "lucide-react";
+import RestaurantList from "./_components/restaurant-list";
+
 
 const Home = () => {
   return (
@@ -37,6 +39,17 @@ const Home = () => {
       <ProductList />
       </div>
       
+      
+      <Image
+        src="/promoBanner02.png"
+        alt="Até 30% de desconto em pizzas"
+        height={0}
+        width={0}
+        className="h-auto w-full object-contain pt-4 pb-4"
+        sizes="100vw"
+        quality={100}
+      />
+      <RestaurantList />
     </>
   );
 };
