@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { db } from "../_lib/prisma";
-import Restaurants from "./restaurants";
+import Restaurants from "./restaurants-item";
 
 const RestaurantList = async () => {
   const restaurants = await db.restaurant.findMany({
