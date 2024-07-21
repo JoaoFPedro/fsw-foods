@@ -14,7 +14,7 @@ const RestaurantList = async () => {
   });
   return (
     <>
-    <div className="flex overflow-x-scroll h-[300px] gap-4 px-5">
+    <div className="flex overflow-x-scroll h-[300px] gap-4 px-5 pt-2">
       
       {restaurants.map((restaurant) => (
         <Restaurants key={restaurant.id} restaurants={restaurant}/>
