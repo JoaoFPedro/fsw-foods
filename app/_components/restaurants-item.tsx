@@ -19,7 +19,7 @@ const Restaurants = ({restaurants}: RestaurantsProps) => {
           className="rounded-lg object-cover shadow-md"
         /> 
       </div>
-      <div>
+      <div className="pt-2">
             <h2 className="truncate text-sm font-semibold">{restaurants.name}</h2>
            
         </div>
