@@ -1,8 +1,13 @@
+
 import { Button } from "@/app/_components/ui/button";
+import { formatCurrency, calculatedProductTotalPrice } from "@/app/_helpers/price";
 import { db } from "@/app/_lib/prisma";
-import { ChevronLeftIcon } from "lucide-react";
+import { ArrowDownIcon, ChevronLeftIcon } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { useState } from "react";
+import ProductImage from "./_components/product-image";
+import ProductPage from "./_components/product-info";
 
 interface ProductsPageProps {
   params: {
@@ -11,36 +16,26 @@ interface ProductsPageProps {
 }
 
 const ProductsPage = async ({ params: { id } }: ProductsPageProps) => {
+   
   const product = await db.product.findUnique({
     where: {
       id,
     },
-    include : {
-        restaurant: true
-    }
-    
+    include: {
+      restaurant: true,
+    },
   });
-  console.log(product)
+  console.log(product);
   if (!product) {
     return notFound();
   }
+  
   return (
     <div>
       <div className="relative h-[360px] w-full">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-cover"
-          sizes="icon"
-        />
-        <Button
-          className="absolute left-4 top-4 rounded-full text-foreground bg-white hover:tex-white"
-          size="icon"
-        >
-          <ChevronLeftIcon />
-        </Button>
+       <ProductImage product={product} />
       </div>
+     <ProductPage product={product}/>
     </div>
   );
 };
