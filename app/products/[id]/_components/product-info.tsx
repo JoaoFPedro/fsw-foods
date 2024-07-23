@@ -1,4 +1,5 @@
 "use client";
+import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 import {
@@ -21,16 +22,16 @@ import { useState } from "react";
 interface ProductPageProps {
   product: Prisma.ProductGetPayload<{
     include: {
-      restaurant: {
-        select: {
-          name: true;
-          imageUrl: true;
-        };
-      };
+      restaurant: true
     };
   }>;
+  complementaryProduct: Prisma.ProductGetPayload<{
+    include: {
+      restaurant: true;
+    };
+  }>[];
 }
-const ProductPage = ({ product }: ProductPageProps) => {
+const ProductPage = ({ product, complementaryProduct }: ProductPageProps) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncreaseQuantity = () => {
@@ -124,7 +125,13 @@ const ProductPage = ({ product }: ProductPageProps) => {
           <p>
             {product.description}
           </p>
-        </div>      
+        </div>     
+        <div>
+          SUCOS
+          </div> 
+          <div>
+            <ProductList products= {complementaryProduct}  />
+          </div>
         </div>
   );
 };
