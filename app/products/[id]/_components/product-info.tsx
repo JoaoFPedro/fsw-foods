@@ -1,3 +1,4 @@
+"use client"
 import { Button } from "@/app/_components/ui/button";
 import {
   calculatedProductTotalPrice,
@@ -6,6 +7,7 @@ import {
 import { Prisma, Product } from "@prisma/client";
 import { ArrowDownIcon, ChevronLeft, ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 interface ProductPageProps {
   product: Prisma.ProductGetPayload<{
@@ -20,7 +22,15 @@ interface ProductPageProps {
   }>;
 }
 const ProductPage = ({ product }: ProductPageProps) => {
-  console.log(product);
+  const [quantity, setQuantity] = useState(0)
+  
+
+  const handleIncreaseQuantity =() => {
+    setQuantity(preValue => preValue + 1 )
+  }
+  const handleDecreaseQuantity =() => {
+    setQuantity(preValue => preValue - 1 )
+  }
   return (
     <>
       {/* Titulo e preço */}
@@ -60,12 +70,12 @@ const ProductPage = ({ product }: ProductPageProps) => {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Button className="border border-solid border-muted-foreground" variant='ghost' >
-            <ChevronLeftIcon size={22} />
+            <Button className="border border-solid border-muted-foreground" variant='ghost' size='icon' >
+            <ChevronLeftIcon  onClick={handleDecreaseQuantity}/>
             </Button>
-            <p>1</p>
-            <Button className="border border-solid border-muted-foreground" variant='ghost' >
-            <ChevronRightIcon size='icon' />
+            <p>{quantity}</p>
+            <Button className="border border-solid border-muted-foreground " variant='ghost'  size='icon' >
+            <ChevronRightIcon onClick={handleIncreaseQuantity}  />
             </Button>
           </div>
         </div>
