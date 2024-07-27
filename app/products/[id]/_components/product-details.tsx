@@ -16,6 +16,7 @@ import {
   ChevronRightIcon,
   StarIcon,
   Timer,
+  TimerIcon,
 } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
@@ -104,6 +105,43 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
           </Button>
         </div>
       </div>
+      {/* DADOS DA ENTREGA */}
+      <Card className="flex justify-around mt-6 p-5">
+        {/* CUSTO  */}
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <span className="text-xs">Entrega</span>
+            <BikeIcon  size={14}/>
+          </div>
+          {Number(product.restaurant.deliveryFee) > 0 ? (
+            <p className="text-sm font-semibold">
+              {formatCurrency(Number(product.restaurant.deliveryFee))}
+            </p>
+          ):(
+            <p className="text-xs font-semibold">Grátis</p>
+          )}
+        </div>
+
+        {/* TEMPO DE ENTREGA  */}
+
+        <div className="flex flex-col items-center">
+          <div className="flex items-center gap-1 text-muted-foreground">
+            <span className="text-xs">Tempo</span>
+            <TimerIcon  size={14}/>
+          </div>
+          {Number(product.restaurant.deliveryTimeMinutes) > 0 ? (
+            <p className="text-sm font-semibold">
+              {product.restaurant.deliveryTimeMinutes} min
+            </p>
+          ):(
+            <p className="text-xs font-semibold">Grátis</p>
+          )}
+        </div>
+
+        
+      </Card>
+      
+
     </div>
   );
 };
