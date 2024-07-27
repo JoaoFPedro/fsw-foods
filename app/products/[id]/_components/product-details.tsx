@@ -36,13 +36,10 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
   };
   const handleDecreaseQuantity = () => {
     setQuantity((preValue) => {
-      if(preValue ===1) return 1;
+      if (preValue === 1) return 1;
 
-      return quantity  -1
+      return quantity - 1;
     });
-
-    
-   
   };
   return (
     <div className="p-5">
@@ -106,18 +103,18 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         </div>
       </div>
       {/* DADOS DA ENTREGA */}
-      <Card className="flex justify-around mt-6 p-5">
+      <Card className="mt-6 flex justify-around p-5">
         {/* CUSTO  */}
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 text-muted-foreground">
             <span className="text-xs">Entrega</span>
-            <BikeIcon  size={14}/>
+            <BikeIcon size={14} />
           </div>
           {Number(product.restaurant.deliveryFee) > 0 ? (
             <p className="text-sm font-semibold">
               {formatCurrency(Number(product.restaurant.deliveryFee))}
             </p>
-          ):(
+          ) : (
             <p className="text-xs font-semibold">Grátis</p>
           )}
         </div>
@@ -127,21 +124,21 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         <div className="flex flex-col items-center">
           <div className="flex items-center gap-1 text-muted-foreground">
             <span className="text-xs">Tempo</span>
-            <TimerIcon  size={14}/>
+            <TimerIcon size={14} />
           </div>
           {Number(product.restaurant.deliveryTimeMinutes) > 0 ? (
             <p className="text-sm font-semibold">
               {product.restaurant.deliveryTimeMinutes} min
             </p>
-          ):(
+          ) : (
             <p className="text-xs font-semibold">Grátis</p>
           )}
         </div>
-
-        
       </Card>
-      
-
+      <div className="mt-6 space-y-3">
+        <h3 className="font-semibold">Sobre</h3>
+        <p className="text-sm text-muted-foreground">{product.description}</p>
+      </div>
     </div>
   );
 };
