@@ -16,20 +16,21 @@ const ProductImage = ({product}:ProductImageProps) => {
         router.push('/')
     }
     return ( 
-        <>
-         <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-cover"
-          sizes="icon"
-        />
-        <Button onClick={handleBackClick}
-          className="hover:tex-white absolute left-4 top-4 rounded-full bg-white text-foreground"
-          size="icon"
-        >
-          <ChevronLeftIcon />
-        </Button></>
+      <div className="relative h-[360px] w-full">
+      <Image
+        src={product.imageUrl}
+        alt={product.name}
+        fill
+        className="object-cover"
+      />
+      <Button
+        className="absolute left-4 top-4 rounded-full bg-white text-foreground"
+        size="icon"
+        onClick={handleBackClick}
+      >
+        <ChevronLeftIcon />
+      </Button>
+    </div>
      );
 }
  

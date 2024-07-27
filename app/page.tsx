@@ -26,12 +26,14 @@ const Home = () => {
       <div className="pt-5">
         <div className="flex items-center justify-between px-5">
           <h2>Pedidos Recomendados</h2>
+          
           <Button variant="ghost" className="p-0 text-xs text-primary">
             Ver todos
             <ChevronRight />
           </Button>
         </div>
         <ProductList />
+       
       </div>
 
       <PromoBanner
@@ -40,6 +42,8 @@ const Home = () => {
       />
       <div className="flex items-center justify-between px-5">
         <h2>Restaurantes Recomendados</h2>
+
+       
         <Button variant="ghost" className="p-0 text-xs text-primary">
           Ver todos <ChevronRight />
         </Button>
