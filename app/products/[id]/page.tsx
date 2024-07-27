@@ -39,7 +39,7 @@ const ProductsPage = async ({ params: { id } }: ProductsPageProps) => {
       <ProductImage product={product} />
 
       {/* TITULO E PREÇO */}
- <ProductDetails product={product}/>
+      <ProductDetails product={product} />
     </div>
   );
 };
