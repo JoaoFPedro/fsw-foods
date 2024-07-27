@@ -1,3 +1,4 @@
+
 import Header from "./_components/Header";
 import Search from "./_components/Search";
 import CategoryList from "./_components/category-list";

@@ -34,8 +34,8 @@ const ProductItem = ({ product }: ProductItemProps) => {
         />
         {product.discountPercentage && (
           <div className="absolute left-1 top-1 rounded-full bg-primary px-2 py-[2px] flex items-center">
-            <ArrowDownIcon size={12}/>
-            <span className="font-semibold text-xs">{product.discountPercentage}%</span>
+            <ArrowDownIcon size={12} className=" text-white"/>
+            <span className="font-semibold text-xs text-white">{product.discountPercentage}%</span>
           </div>
         )}
       </div>
