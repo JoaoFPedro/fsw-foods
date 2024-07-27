@@ -25,13 +25,9 @@ interface ProductPageProps {
       restaurant: true
     };
   }>;
-  complementaryProduct: Prisma.ProductGetPayload<{
-    include: {
-      restaurant: true;
-    };
-  }>[];
+
 }
-const ProductPage = ({ product, complementaryProduct }: ProductPageProps) => {
+const ProductPage = ({ product,}: ProductPageProps) => {
   const [quantity, setQuantity] = useState(0);
 
   const handleIncreaseQuantity = () => {
@@ -130,7 +126,7 @@ const ProductPage = ({ product, complementaryProduct }: ProductPageProps) => {
           SUCOS
           </div> 
           <div>
-            <ProductList products= {complementaryProduct}  />
+           
           </div>
         </div>
   );
