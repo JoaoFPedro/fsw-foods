@@ -10,6 +10,7 @@ import { notFound } from "next/navigation";
 import { useState } from "react";
 import ProductImage from "./_components/product-image";
 import ProductPage from "./_components/product-info";
+import DiscountBadge from "@/app/_components/discount-badge";
 
 interface ProductsPageProps {
   params: {
@@ -34,24 +35,12 @@ const ProductsPage = async ({ params: { id } }: ProductsPageProps) => {
   return (
     <div>
       {/* IMAGEM */}
-      <div className="relative h-[360px] w-full">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          className="object-cover"
-        />
-        <Button
-          className="absolute left-4 top-4 rounded-full bg-white text-foreground"
-          size="icon"
-        >
-          <ChevronLeftIcon />
-        </Button>
-      </div>
+      <ProductImage product={product} />
+
       {/* TITULO E PREÇO */}
       <div className="p-5">
         {/* RESTURANTE */}
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-[0.375rem]">
           <div className="relative h-6 w-6">
             <Image
               src={product.restaurant.imageUrl}
@@ -60,7 +49,35 @@ const ProductsPage = async ({ params: { id } }: ProductsPageProps) => {
               className="rounded-full object-cover"
             />
           </div>
-          <span className="text-xs text-muted-foreground">{product.restaurant.name}</span>
+          <span className="text-xs text-muted-foreground">
+            {product.restaurant.name}
+          </span>
+        </div>
+        {/* NOME DO PRODUTO */}
+        <h1 className="mb-2 mt-1 text-xl font-semibold">{product.name}</h1>
+
+        {/* PREÇO DO PRODUTO E QUANTIDADE */}
+        <div className="flex justify-between">
+          {/* PRECO COM DESCONTO */}
+          <div>
+            <div className="flex items-center gap-2">
+              <h2 className="text-xl font-semibold">
+                {formatCurrency(calculatedProductTotalPrice(product))}
+              </h2>
+              {product.discountPercentage > 0 && (
+                <DiscountBadge product={product} />
+              )}
+            </div>
+
+            {/* PRECO ORIGINAL */}
+            {product.discountPercentage > 0 && (
+              <span className="text-sm text-muted-foreground">
+                De {formatCurrency(Number(product.price))}
+              </span>
+            )}
+          </div>
+
+          {/* QUANTIDADE */}
         </div>
       </div>
     </div>
