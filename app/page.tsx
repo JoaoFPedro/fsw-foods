@@ -6,8 +6,27 @@ import { Button } from "./_components/ui/button";
 import { ChevronRight } from "lucide-react";
 import RestaurantList from "./_components/restaurant-list";
 import PromoBanner from "./_components/promo-banner";
+import { Prisma } from "@prisma/client";
+import { db } from "./_lib/prisma";
 
-const Home = () => {
+
+const Home = async () => {
+  const products = await db.product.findMany({
+    where: {
+      discountPercentage: {
+        gt: 0,
+      },
+    },
+    take: 10,
+    include:{
+      restaurant: {
+        select: {
+          name: true
+        }
+      }
+    }
+  });
+  console.log(products)
   return (
     <>
       <Header />
@@ -32,7 +51,7 @@ const Home = () => {
             <ChevronRight />
           </Button>
         </div>
-        <ProductList />
+        <ProductList products={products} />
        
       </div>
 
