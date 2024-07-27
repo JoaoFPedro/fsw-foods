@@ -9,13 +9,9 @@ import {
 } from "@/app/_helpers/price";
 import { Prisma, Product } from "@prisma/client";
 import {
-  ArrowDownIcon,
   BikeIcon,
   ChevronLeft,
-  ChevronLeftIcon,
   ChevronRightIcon,
-  StarIcon,
-  Timer,
   TimerIcon,
 } from "lucide-react";
 import Image from "next/image";
@@ -27,9 +23,17 @@ interface ProductDetailsProps {
       restaurant: true;
     };
   }>;
+  complementaryProducts: Prisma.ProductGetPayload<{
+    include: {
+      restaurant: true;
+    };
+  }>[];
 }
-const ProductDetails = ({ product }: ProductDetailsProps) => {
-  const [quantity, setQuantity] = useState(0);
+const ProductDetails = ({
+  product,
+  complementaryProducts,
+}: ProductDetailsProps) => {
+  const [quantity, setQuantity] = useState(1);
 
   const handleIncreaseQuantity = () => {
     setQuantity((preValue) => preValue + 1);
@@ -138,6 +142,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <div className="mt-6 space-y-3">
         <h3 className="font-semibold">Sobre</h3>
         <p className="text-sm text-muted-foreground">{product.description}</p>
+      </div>
+
+      <div className="mt-6 space-y-3 ">
+        <h3 className="font-semibold">Sucos</h3>
+        <ProductList products={complementaryProducts} />
       </div>
     </div>
   );
