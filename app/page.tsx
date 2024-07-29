@@ -9,6 +9,7 @@ import RestaurantList from "./_components/restaurant-list";
 import PromoBanner from "./_components/promo-banner";
 import { Prisma } from "@prisma/client";
 import { db } from "./_lib/prisma";
+import Footer from "./_components/footer";
 
 
 const Home = async () => {
@@ -69,6 +70,7 @@ const Home = async () => {
         </Button>
       </div>
       <RestaurantList />
+      <Footer/>
     </>
   );
 };
