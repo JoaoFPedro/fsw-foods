@@ -46,7 +46,7 @@ const ProductDetails = ({
     });
   };
   return (
-    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white py-5 p-5">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5">
       {/* RESTURANTE */}
       <div className="flex items-center gap-[0.375rem]">
         <div className="relative h-6 w-6">
@@ -130,13 +130,10 @@ const ProductDetails = ({
             <span className="text-xs">Tempo</span>
             <TimerIcon size={14} />
           </div>
-          {Number(product.restaurant.deliveryTimeMinutes) > 0 ? (
-            <p className="text-sm font-semibold">
-              {product.restaurant.deliveryTimeMinutes} min
-            </p>
-          ) : (
-            <p className="text-xs font-semibold">Grátis</p>
-          )}
+
+          <p className="text-sm font-semibold">
+            {product.restaurant.deliveryTimeMinutes} min
+          </p>
         </div>
       </Card>
       <div className="mt-6 space-y-3">
@@ -144,7 +141,7 @@ const ProductDetails = ({
         <p className="text-sm text-muted-foreground">{product.description}</p>
       </div>
 
-      <div className="mt-6 space-y-3 ">
+      <div className="mt-6 space-y-3">
         <h3 className="font-semibold">Sucos</h3>
         <ProductList products={complementaryProducts} />
       </div>
