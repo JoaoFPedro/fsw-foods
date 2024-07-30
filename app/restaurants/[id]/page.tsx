@@ -1,6 +1,7 @@
 import { db } from "@/app/_lib/prisma";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import RestaurantImage from "./_components/restaurant-image";
 
 interface RestaurantPageProps {
   params: {
@@ -19,14 +20,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
     return notFound();
   }
   return (
-    <div>
-      <Image
-        src={restaurants?.imageUrl}
-        alt={restaurants?.name}
-        fill
-        className="object-cover"
-      />
-    </div>
+    <RestaurantImage restaurants={restaurants}/>
   );
 };
 
