@@ -1,3 +1,4 @@
+import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 import { formatCurrency } from "@/app/_helpers/price";
 import { Restaurant } from "@prisma/client";
@@ -59,6 +60,17 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
           )}
         </div>
       </Card>
+
+      <div className="flex justify-around p-4 gap-2">
+      <Button className="bg-gray-100 w-full rounded-lg shadow text-gray-600 text-base cursor-pointer transition-colors duration-300 hover:bg-gray-200">
+        Japonesa
+      </Button>
+      <Button className="bg-gray-100  w-full rounded-lg shadow text-gray-600 text-base cursor-pointer transition-colors duration-300 hover:bg-gray-200">
+        Sucos
+      </Button>
+      </div>
+
+    <h2 className="text-xl font-semibold py-8">Mais Pedidos</h2>
     </div>
   );
 };
