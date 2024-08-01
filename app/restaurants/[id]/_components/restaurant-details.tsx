@@ -12,25 +12,27 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
   return (
     <div className="p-5">
       {/* RESTAURANT */}
-      <div className="flex items-center gap-1">
-        <div className="relative h-8 w-8">
-          <Image
-            src={restaurant.imageUrl}
-            alt={restaurant.name}
-            fill
-            className="rounded-full object-cover"
-          />
+      <div className="flex items-center justify-between gap-1">
+        <div className="flex items-center gap-[0.375rem]">
+          <div className="relative h-8 w-8">
+            <Image
+              src={restaurant.imageUrl}
+              alt={restaurant.name}
+              fill
+              className="rounded-full object-cover"
+            />
+          </div>
+
+          <span className="text-xl">{restaurant.name}</span>
+  
         </div>
-        <div className="flex">
-          <span className="text-xl font-semibold">{restaurant.name}</span>
-          <div className="left-2 top-3 flex items-center gap-1 rounded-full bg-white px-2 py-[2px]">
+        <div className="flex items-center gap-1 rounded-full bg-white px-2 py-[2px]">
             <StarIcon className="fill-yellow-400 text-yellow-400" size={16} />
             <span className="text-xs font-semibold">5.0</span>
           </div>
-        </div>
       </div>
       {/* CARD -  */}
-      <Card className="mt-6 p-5 flex justify-around">
+      <Card className="mt-6 flex justify-around p-5">
         {/* ENTREGA */}
         <div className="flex flex-col items-center">
           <div className="flex">
@@ -47,11 +49,11 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
         </div>
         {/* TEMPO */}
         <div className="flex flex-col items-center">
-            <div className="flex">
-                <span>Entrega</span>
-                <TimerIcon />
-            </div>
-            {Number(restaurant.deliveryFee) > 0 ? (
+          <div className="flex">
+            <span>Entrega</span>
+            <TimerIcon />
+          </div>
+          {Number(restaurant.deliveryFee) > 0 ? (
             <p className="text-sm font-semibold">
               {formatCurrency(Number(restaurant.deliveryFee))}
             </p>
@@ -61,16 +63,16 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
         </div>
       </Card>
 
-      <div className="flex justify-around p-4 gap-2">
-      <Button className="bg-gray-100 w-full rounded-lg shadow text-gray-600 text-base cursor-pointer transition-colors duration-300 hover:bg-gray-200">
-        Japonesa
-      </Button>
-      <Button className="bg-gray-100  w-full rounded-lg shadow text-gray-600 text-base cursor-pointer transition-colors duration-300 hover:bg-gray-200">
-        Sucos
-      </Button>
+      <div className="flex justify-around gap-2 p-4">
+        <Button className="w-full cursor-pointer rounded-lg bg-gray-100 text-base text-gray-600 shadow transition-colors duration-300 hover:bg-gray-200">
+          Japonesa
+        </Button>
+        <Button className="w-full cursor-pointer rounded-lg bg-gray-100 text-base text-gray-600 shadow transition-colors duration-300 hover:bg-gray-200">
+          Sucos
+        </Button>
       </div>
 
-    <h2 className="text-xl font-semibold py-8">Mais Pedidos</h2>
+      <h2 className="py-8 text-xl font-semibold">Mais Pedidos</h2>
     </div>
   );
 };
