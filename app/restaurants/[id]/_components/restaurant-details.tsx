@@ -1,31 +1,44 @@
 import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
-import { formatCurrency } from "@/app/_helpers/price";
+import { calculatedProductTotalPrice, formatCurrency } from "@/app/_helpers/price";
 import { Prisma, Restaurant } from "@prisma/client";
 import { BikeIcon, StarIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 interface RestaurantDetailsProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: {
-      categories: true,
-      products: {
-        take:  10,
+      categories:{
         include:{
-          restaurant:{
-            select:{
-              name: true,
-            }
-          }
-        }
-      }
+          products: {
+            include: {
+              restaurant: {
+                select:{
+                  name: true,
+                },
+              },
+            },
+          },
+        },
+      },
+      products: {
+        take: 10;
+        include: {
+          restaurant: {
+            select: {
+              name: true;
+            };
+          };
+        };
+      };
     };
   }>;
 }
 
 const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
+  console.log("CATEGORIES", restaurant.categories[2]);
   return (
-    <div className="p-5">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5 ">
       {/* RESTAURANT */}
       <div className="flex items-center justify-between gap-1">
         <div className="flex items-center gap-[0.375rem]">
@@ -76,20 +89,34 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
           )}
         </div>
       </Card>
-      
-      <div className="flex gap-4  overflow-x-scroll [&::-webkit-scrollbar]:hidden mt-6 ">
+
+      <div className="mt-6 flex gap-4 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
         {restaurant.categories.map((category) => (
-          <div key={category.id} className="min-w-[167px] rounded-lg bg-[#F4F4F4] text-center">
+          <div
+            key={category.id}
+            className="min-w-[167px] rounded-lg bg-[#F4F4F4] text-center"
+          >
             <span>{category.name}</span>
           </div>
         ))}
       </div>
-        <div className="mt-6 space-y-4">
-        <h2 className=" text-xl font-semibold">Mais Pedidos</h2>
-        
-        <ProductList products={restaurant.products}/> 
-        </div>
+      <div className="mt-6 space-y-4">
+        <h2 className="text-xl font-semibold">Mais Pedidos</h2>
 
+        <ProductList products={restaurant.products} />
+      </div>
+
+      <div className="mt-6 space-y-4">
+        <h2 className="text-xl font-semibold">Mais Pedidos</h2>
+
+        <ProductList products={restaurant.products} />
+      </div>
+
+      <Card>
+      <h2 className="text-xl font-semibold">
+              {formatCurrency(calculatedProductTotalPrice(restaurant.products[2]))}
+            </h2>
+      </Card>
     </div>
   );
 };
