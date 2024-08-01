@@ -1,11 +1,26 @@
+import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 import { formatCurrency } from "@/app/_helpers/price";
-import { Restaurant } from "@prisma/client";
+import { Prisma, Restaurant } from "@prisma/client";
 import { BikeIcon, StarIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 interface RestaurantDetailsProps {
-  restaurant: Restaurant;
+  restaurant: Prisma.RestaurantGetPayload<{
+    include: {
+      categories: true,
+      products: {
+        take:  10,
+        include:{
+          restaurant:{
+            select:{
+              name: true,
+            }
+          }
+        }
+      }
+    };
+  }>;
 }
 
 const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
@@ -24,12 +39,11 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
           </div>
 
           <span className="text-xl">{restaurant.name}</span>
-  
         </div>
         <div className="flex items-center gap-1 rounded-full bg-white px-2 py-[2px]">
-            <StarIcon className="fill-yellow-400 text-yellow-400" size={16} />
-            <span className="text-xs font-semibold">5.0</span>
-          </div>
+          <StarIcon className="fill-yellow-400 text-yellow-400" size={16} />
+          <span className="text-xs font-semibold">5.0</span>
+        </div>
       </div>
       {/* CARD -  */}
       <Card className="mt-6 flex justify-around p-5">
@@ -62,17 +76,20 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
           )}
         </div>
       </Card>
-
-      <div className="flex justify-around gap-2 p-4">
-        <Button className="w-full cursor-pointer rounded-lg bg-gray-100 text-base text-gray-600 shadow transition-colors duration-300 hover:bg-gray-200">
-          Japonesa
-        </Button>
-        <Button className="w-full cursor-pointer rounded-lg bg-gray-100 text-base text-gray-600 shadow transition-colors duration-300 hover:bg-gray-200">
-          Sucos
-        </Button>
+      
+      <div className="flex gap-4  overflow-x-scroll [&::-webkit-scrollbar]:hidden mt-6 ">
+        {restaurant.categories.map((category) => (
+          <div key={category.id} className="min-w-[167px] rounded-lg bg-[#F4F4F4] text-center">
+            <span>{category.name}</span>
+          </div>
+        ))}
       </div>
+        <div className="mt-6 space-y-4">
+        <h2 className=" text-xl font-semibold">Mais Pedidos</h2>
+        
+        <ProductList products={restaurant.products}/> 
+        </div>
 
-      <h2 className="py-8 text-xl font-semibold">Mais Pedidos</h2>
     </div>
   );
 };
