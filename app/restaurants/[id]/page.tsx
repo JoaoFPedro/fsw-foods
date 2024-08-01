@@ -15,6 +15,35 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
     where: {
       id,
     },
+    include: {
+      categories:{
+        include:{
+          products: {
+            where:{
+              restaurantId: id,
+            },
+            include: {
+              restaurant: {
+                select:{
+                  name: true,
+                }
+              }
+            }
+          }
+        }
+      },
+      products: {
+        take:  10,
+        include:{
+          restaurant:{
+            select:{
+              name: true,
+              categories: true
+            }
+          }
+        }
+      }
+    }
   });
 
   if (!restaurants) {
