@@ -1,4 +1,3 @@
-
 import Header from "./_components/Header";
 import Search from "./_components/Search";
 import CategoryList from "./_components/category-list";
@@ -12,9 +11,7 @@ import { db } from "./_lib/prisma";
 import Footer from "./_components/footer";
 import Link from "next/link";
 
-
 const Home = async () => {
- 
   const products = await db.product.findMany({
     where: {
       discountPercentage: {
@@ -22,15 +19,14 @@ const Home = async () => {
       },
     },
     take: 10,
-    include:{
+    include: {
       restaurant: {
         select: {
-          name: true
-        }
-      }
-    }
+          name: true,
+        },
+      },
+    },
   });
- 
 
   return (
     <>
@@ -50,14 +46,13 @@ const Home = async () => {
       <div className="pt-5">
         <div className="flex items-center justify-between px-5">
           <h2>Pedidos Recomendados</h2>
-          
+
           <Button variant="ghost" className="p-0 text-xs text-primary">
             Ver todos
             <ChevronRight />
           </Button>
         </div>
         <ProductList products={products} />
-       
       </div>
 
       <PromoBanner
@@ -67,15 +62,14 @@ const Home = async () => {
       <div className="flex items-center justify-between px-5">
         <h2>Restaurantes Recomendados</h2>
 
-       
-    <Link href={'/restaurants/recommended'}>
-    <Button variant="ghost" className="p-0 text-xs text-primary">
-          Ver todos <ChevronRight />
-        </Button>
-    </Link>
+        <Link href={"/restaurants/recommended"}>
+          <Button variant="ghost" className="p-0 text-xs text-primary">
+            Ver todos <ChevronRight />
+          </Button>
+        </Link>
       </div>
       <RestaurantList />
-      <Footer/>
+      <Footer />
     </>
   );
 };

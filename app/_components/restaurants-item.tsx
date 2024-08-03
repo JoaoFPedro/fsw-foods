@@ -14,7 +14,7 @@ const Restaurants = ({ restaurants, clasName }: RestaurantsProps) => {
   return (
     
 <Link href={`/restaurants/${restaurants.id}`}>
-<div className={cn('w-[300px] min-w-[300px] space-y-2', clasName)}>
+<div className={cn('w-[300px] min-w-[300px] ', clasName)}>
         <div className="relative h-[150px] w-full">
           <Image
             src={restaurants.imageUrl}
