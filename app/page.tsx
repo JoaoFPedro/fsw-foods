@@ -47,12 +47,12 @@ const Home = async () => {
         <div className="flex items-center justify-between px-5">
           <h2>Pedidos Recomendados</h2>
 
- <Link href={'/products/recommended'}>
- <Button variant="ghost" className="p-0 text-xs text-primary">
-            Ver todos
-            <ChevronRight />
-          </Button>
- </Link>
+          <Link href={"/products/recommended"}>
+            <Button variant="ghost" className="p-0 text-xs text-primary">
+              Ver todos
+              <ChevronRight />
+            </Button>
+          </Link>
         </div>
         <ProductList products={products} />
       </div>
