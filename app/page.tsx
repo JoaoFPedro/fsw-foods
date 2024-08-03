@@ -7,12 +7,14 @@ import { Button } from "./_components/ui/button";
 import { ChevronRight } from "lucide-react";
 import RestaurantList from "./_components/restaurant-list";
 import PromoBanner from "./_components/promo-banner";
-import { Prisma } from "@prisma/client";
+
 import { db } from "./_lib/prisma";
 import Footer from "./_components/footer";
+import Link from "next/link";
 
 
 const Home = async () => {
+ 
   const products = await db.product.findMany({
     where: {
       discountPercentage: {
@@ -28,7 +30,8 @@ const Home = async () => {
       }
     }
   });
-  console.log(products)
+ 
+
   return (
     <>
       <Header />
@@ -65,9 +68,11 @@ const Home = async () => {
         <h2>Restaurantes Recomendados</h2>
 
        
-        <Button variant="ghost" className="p-0 text-xs text-primary">
+    <Link href={'/restaurants/recommended'}>
+    <Button variant="ghost" className="p-0 text-xs text-primary">
           Ver todos <ChevronRight />
         </Button>
+    </Link>
       </div>
       <RestaurantList />
       <Footer/>
