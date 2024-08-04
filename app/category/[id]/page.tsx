@@ -1,23 +1,55 @@
 import { db } from "@/app/_lib/prisma";
-import Image from "next/image";
+
+import { notFound } from "next/navigation";
+import ProductItem from "@/app/_components/product-item";
+import Header from "@/app/_components/Header";
 
 interface CategoryPageProps {
-    params :{
-        id: string
-    }
+  params: {
+    id: string;
+  };
 }
-const CategoryPage = async ({params: {id}}:CategoryPageProps) => {
-    const category = await db.product.findMany({
-where: {
-    category: {
-        name:'Sucos'
-    }
-}
-    })
-    console.log('category',category)
-    return ( 
-        <Image src={category[0].imageUrl} fill alt={category[0].name} />
-     );
-}
- 
+const CategoryPage = async ({ params: { id } }: CategoryPageProps) => {
+  console.log(id);
+  const category = await db.category.findUnique({
+    where: {
+      id,
+    },
+    include: {
+      products: {
+        include: {
+          restaurant: {
+            select: {
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  if (!category) {
+    return notFound();
+  }
+  return (
+    <div className="mb-4">
+    <div className="mb-9">
+      <Header />
+    </div>
+    <span className="p-5 text-xl font-semibold">
+      {category.name}
+    </span>
+    <div className="p-5 ">
+      {category.products.map((product) => (
+        <ProductItem
+          key={product.id}
+          product={product}
+          
+        />
+      ))}
+    </div>
+  </div>
+  );
+};
+
 export default CategoryPage;
