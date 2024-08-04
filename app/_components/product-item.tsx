@@ -39,7 +39,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
           </div>
         )}
       </div>
-      <div>
+      <div className="">
         <h2 className="truncate text-sm">{product.name}</h2>
         <div className="flex items-center gap-2">
           <h3 className="font-semibold">
@@ -51,7 +51,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
             </span>
           )}
         </div>
-        <p className="text-muted-foreground text-xs">{product.restaurant.name}</p>
+        <p className="text-muted-foreground text-xs mb-3">{product.restaurant.name}</p>
       </div>
     </div>
 </Link>
