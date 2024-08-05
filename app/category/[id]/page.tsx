@@ -39,7 +39,7 @@ const CategoryPage = async ({ params: { id } }: CategoryPageProps) => {
     <span className="p-5 text-xl font-semibold">
       {category.name}
     </span>
-    <div className="p-5 ">
+    <div className="flex flex-wrap items-center gap-4 p-5  ">
       {category.products.map((product) => (
         <ProductItem
           key={product.id}

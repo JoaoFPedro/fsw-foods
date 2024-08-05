@@ -30,7 +30,7 @@ const Header = () => {
             variant="outline"
             className="border-none bg-transparent"
           >
-            <MenuIcon />
+            <MenuIcon className="" />
           </Button>
         </SheetTrigger>
         <SheetContent>
