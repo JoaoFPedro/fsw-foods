@@ -15,6 +15,7 @@ const Restaurants = () => {
     const fetchRestaurants = async () => {
       if (!searchFor) return;
       const foundRestaurants = await searchRestaurants(searchFor);
+      
 
       setRestaurants(foundRestaurants);
     };
@@ -24,26 +25,27 @@ const Restaurants = () => {
   if (!searchFor) {
     return notFound();
   }
-
+  console.log('foundRestaurants**',restaurants)
   return (
     <div className="mb-4">
       <div className="mb-9">
         <Header />
       </div>
       <span className="p-5 text-xl font-semibold">
-        Restaurantes Encontrados
+        {restaurants.length > 0 ? "Restaurantes Encontrados" : "Nenhum Restaurante Encontrado"}
       </span>
-      <div className="flex flex-col space-y-4 p-5">
-        {restaurants.map((restaurant) => (
-          <RestaurantsItem
-            key={restaurant.id}
-            restaurants={restaurant}
-            clasName="min-w-full max-w-full space-y-2"
-          />
-        ))}
-      </div>
+      {restaurants.length > 0 && (
+        <div className="flex flex-col space-y-4 p-5">
+          {restaurants.map((restaurant) => (
+            <RestaurantsItem
+              key={restaurant.id}
+              restaurants={restaurant}
+              clasName="min-w-full max-w-full space-y-2"
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };
-
 export default Restaurants;
