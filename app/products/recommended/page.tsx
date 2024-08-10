@@ -24,7 +24,7 @@ const RecommendedProducts = async () => {
         <Header />
       </div>
       <span className="p-5 text-xl font-semibold">Pedidos Recomendados</span>
-      <div className="flex flex-wrap items-center gap-4 p-5">
+      <div className="grid grid-cols-2 gap-6 p-5">
         {products.map((product) => (
           <ProductItem key={product.id} product={product} />
         ))}
