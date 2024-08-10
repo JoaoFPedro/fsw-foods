@@ -37,7 +37,7 @@ const Header = () => {
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
-          <div className="mb-4 flex justify-between border-b-2 border-blue-500 pb-3">
+          <div className="mb-4 flex justify-between border-b-2 border-#EEEEEE">
             <span className="">Olá, Faça seu login!</span>
             <div>
               <LogInIcon className="text-xl" />
