@@ -5,7 +5,9 @@ import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
+  SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -18,6 +20,7 @@ import {
 import { Prisma, Product } from "@prisma/client";
 import {
   BikeIcon,
+  Car,
   ChevronLeft,
   ChevronRightIcon,
   TimerIcon,
@@ -154,67 +157,81 @@ const ProductDetails = ({
         <ProductList products={complementaryProducts} />
       </div>
 
-      <Sheet>
+    
+      <Sheet  >
         <SheetTrigger className="" asChild>
           <Button className="w-full">Adicionar a sacola</Button>
         </SheetTrigger>
-        <SheetContent>
+        <SheetContent className="">
           <SheetHeader>
             <SheetTitle>Sacola</SheetTitle>
           </SheetHeader>
-          <div className="flex">
-          <div className="relative h-[77px] w-[77px]">
-            <Image
-              src={product.imageUrl}
-              fill
-              alt={product.name}
-              className="rounded-sm object-cover "
-            ></Image>
-          </div>
-        
+          <div className="flex flex-col h-screen justify-between">
+          <div className="flex items-center justify-between">
+            <div className="relative h-[77px] w-[77px]">
+              <Image
+                src={product.imageUrl}
+                fill
+                alt={product.name}
+                className="rounded-sm object-cover"
+              ></Image>
+            </div>
 
-          {/* PREÇO DO PRODUTO E QUANTIDADE */}
-          <div className="px-2 ">
-          <h1 className=" mt-1 text-sm font-semibold">{product.name}</h1>
-            <div className="flex gap-1">
-             
+            {/* PREÇO DO PRODUTO E QUANTIDADE */}
+            <div className="px-2">
+              <h1 className="mt-1 text-sm font-semibold">{product.name}</h1>
+              <div className="flex gap-1">
                 <h2 className="text-sm font-semibold">
                   {formatCurrency(calculatedProductTotalPrice(product))}
                 </h2>
-              
 
-              {/* PRECO ORIGINAL */}
-              {product.discountPercentage > 0 && (
-                <span className="text-sm text-muted-foreground">
-                 {formatCurrency(Number(product.price))}
-                </span>
-              )}
-              
+                {/* PRECO ORIGINAL */}
+                {product.discountPercentage > 0 && (
+                  <span className="text-sm text-muted-foreground">
+                    {formatCurrency(Number(product.price))}
+                  </span>
+                )}
+              </div>
+              <div className="flex items-center gap-2 pt-2 text-center">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-6 w-6 border border-solid border-muted-foreground"
+                  onClick={handleDecreaseQuantity}
+                >
+                  <ChevronLeft />
+                </Button>
+                <span className="w-3">{quantity}</span>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-6 w-6 border border-solid border-muted-foreground"
+                  onClick={handleIncreaseQuantity}
+                >
+                  <ChevronRightIcon />
+                </Button>
+              </div>
             </div>
-            <div className="flex items-center gap-2 text-center pt-2">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="border border-solid border-muted-foreground w-6 h-6"
-            onClick={handleDecreaseQuantity}
-          >
-            <ChevronLeft />
-          </Button>
-          <span className="w-3">{quantity}</span>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="border border-solid border-muted-foreground w-6 h-6"
-            onClick={handleIncreaseQuantity}
-          >
-            <ChevronRightIcon />
-          </Button>
-        </div>
           </div>
+         
+          <SheetFooter>
+            
+            <SheetClose >
+            <Card >
+            <h1> teste</h1>
+          </Card>
+              <Button type="submit" className="">Save changes</Button>
+            </SheetClose>
+            
+          </SheetFooter>
           </div>
+         
+          
         </SheetContent>
       </Sheet>
-    </div>
+
+      </div>
+   
   );
 };
 
