@@ -1,4 +1,5 @@
 "use client";
+import Cart from "@/app/_components/cart";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
@@ -12,6 +13,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/app/_components/ui/sheet";
+import { CartContext } from "@/app/_context/cart";
 
 import {
   calculatedProductTotalPrice,
@@ -20,13 +22,13 @@ import {
 import { Prisma, Product } from "@prisma/client";
 import {
   BikeIcon,
-  Car,
+  
   ChevronLeft,
-  ChevronRightIcon,
+  ChevronRight,
   TimerIcon,
 } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ProductDetailsProps {
   product: Prisma.ProductGetPayload<{
@@ -45,6 +47,8 @@ const ProductDetails = ({
   complementaryProducts,
 }: ProductDetailsProps) => {
   const [quantity, setQuantity] = useState(1);
+  const {addProductToCart, products} = useContext(CartContext)
+  const [isOpen, setIsOpen] = useState(false)
 
   const handleIncreaseQuantity = () => {
     setQuantity((preValue) => preValue + 1);
@@ -53,11 +57,17 @@ const ProductDetails = ({
     setQuantity((preValue) => {
       if (preValue === 1) return 1;
 
-      return quantity - 1;
+      return preValue - 1;
     });
   };
+  const handleAddToCart = () => {
+    addProductToCart(product)
+    setIsOpen(true)
+    console.log(product)
+  }
   return (
-    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5">
+<>
+<div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5">
       {/* RESTURANTE */}
       <div className="flex items-center gap-[0.375rem]">
         <div className="relative h-6 w-6">
@@ -113,7 +123,7 @@ const ProductDetails = ({
             className="border border-solid border-muted-foreground"
             onClick={handleIncreaseQuantity}
           >
-            <ChevronRightIcon />
+            <ChevronRight />
           </Button>
         </div>
       </div>
@@ -157,80 +167,17 @@ const ProductDetails = ({
         <ProductList products={complementaryProducts} />
       </div>
 
-    
-      <Sheet  >
-        <SheetTrigger className="" asChild>
-          <Button className="w-full">Adicionar a sacola</Button>
-        </SheetTrigger>
-        <SheetContent className="">
-          <SheetHeader>
-            <SheetTitle>Sacola</SheetTitle>
-          </SheetHeader>
-          <div className="flex flex-col h-screen justify-between">
-          <div className="flex items-center justify-between">
-            <div className="relative h-[77px] w-[77px]">
-              <Image
-                src={product.imageUrl}
-                fill
-                alt={product.name}
-                className="rounded-sm object-cover"
-              ></Image>
-            </div>
+      <Button className="w-full" onClick={handleAddToCart}>Adicionar a sacola</Button>
 
-            {/* PREÇO DO PRODUTO E QUANTIDADE */}
-            <div className="px-2">
-              <h1 className="mt-1 text-sm font-semibold">{product.name}</h1>
-              <div className="flex gap-1">
-                <h2 className="text-sm font-semibold">
-                  {formatCurrency(calculatedProductTotalPrice(product))}
-                </h2>
 
-                {/* PRECO ORIGINAL */}
-                {product.discountPercentage > 0 && (
-                  <span className="text-sm text-muted-foreground">
-                    {formatCurrency(Number(product.price))}
-                  </span>
-                )}
-              </div>
-              <div className="flex items-center gap-2 pt-2 text-center">
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6 border border-solid border-muted-foreground"
-                  onClick={handleDecreaseQuantity}
-                >
-                  <ChevronLeft />
-                </Button>
-                <span className="w-3">{quantity}</span>
-                <Button
-                  size="icon"
-                  variant="ghost"
-                  className="h-6 w-6 border border-solid border-muted-foreground"
-                  onClick={handleIncreaseQuantity}
-                >
-                  <ChevronRightIcon />
-                </Button>
-              </div>
-            </div>
-          </div>
-         
-          <SheetFooter>
-            
-            <SheetClose >
-            <Card >
-            <h1> teste</h1>
-          </Card>
-              <Button type="submit" className="">Save changes</Button>
-            </SheetClose>
-            
-          </SheetFooter>
-          </div>
-         
-          
-        </SheetContent>
-      </Sheet>
+    </div>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
+      <SheetContent>
+        <Cart />
+      </SheetContent>
+    </Sheet>
+</>
 
-      </div>
    
   );
 };
