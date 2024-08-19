@@ -21,7 +21,7 @@ const Quantity = () => {
       <Button
         size="icon"
         variant="ghost"
-        className="border border-solid border-muted-foreground"
+        className="border border-solid border-muted-foreground w-8 h-8"
         onClick={handleDecreaseQuantity}
       >
         <ChevronLeft />
@@ -30,7 +30,7 @@ const Quantity = () => {
       <Button
         size="icon"
         variant="ghost"
-        className="border border-solid border-muted-foreground"
+        className="border border-solid border-muted-foreground w-8 h-8"
         onClick={handleIncreaseQuantity}
       >
         <ChevronRight />
