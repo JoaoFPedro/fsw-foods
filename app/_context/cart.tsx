@@ -22,6 +22,7 @@ export const CartProvider = ({children}: {children: ReactNode}) =>{
     const addProductToCart = (product: Product) =>{
         setProducts((prev) => [...prev, {...product, quantity: 0}])
     }
+    
 
     return (
         <CartContext.Provider value={{products, addProductToCart}}>

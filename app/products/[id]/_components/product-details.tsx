@@ -141,6 +141,7 @@ const ProductDetails = ({
       </div>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent>
+          <SheetTitle >Sacola</SheetTitle>
           <Cart />
         </SheetContent>
       </Sheet>
