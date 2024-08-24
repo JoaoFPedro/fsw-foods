@@ -41,13 +41,13 @@ const CartItem = ({ cartItem }: CartItemProps) => {
           <h4 className="text-xs">{cartItem.name}</h4>
           <div className="flex gap-1">
             <h4 className="text-sm font-semibold">
-              {formatCurrency(calculatedProductTotalPrice(cartItem))}
+              {formatCurrency(calculatedProductTotalPrice(cartItem) * cartItem.quantity)}
             </h4>
 
             {/* PRECO ORIGINAL */}
             {cartItem.discountPercentage > 0 && (
               <span className="text-sm text-muted-foreground line-through">
-                {formatCurrency(Number(cartItem.price))}
+                {formatCurrency(Number(cartItem.price) * cartItem.quantity)}
               </span>
             )}
           </div>
