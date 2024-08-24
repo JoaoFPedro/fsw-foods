@@ -47,10 +47,22 @@ const ProductDetails = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const handleAddToCart = () => {
-    addProductToCart(product);
+    addProductToCart(product,quantity);
     setIsOpen(true);
-    console.log(product);
+   
   };
+  
+
+  const handleIncreaseQuantity = () => {
+      setQuantity((preValue) => preValue + 1);
+    };
+    const handleDecreaseQuantity = () => {
+      setQuantity((preValue) => {
+        if (preValue === 1) return 1;
+  
+        return preValue - 1;
+      });
+    };
   return (
     <>
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5">
@@ -93,7 +105,25 @@ const ProductDetails = ({
           </div>
 
           {/* QUANTIDADE */}
-          <Quantity />
+          <div className="flex items-center gap-2 text-center">
+      <Button
+        size="icon"
+        variant="ghost"
+        className="border border-solid border-muted-foreground w-8 h-8"
+        onClick={handleDecreaseQuantity}
+      >
+        <ChevronLeft />
+      </Button>
+      <span className="w-3">{quantity}</span>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="border border-solid border-muted-foreground w-8 h-8"
+        onClick={handleIncreaseQuantity}
+      >
+        <ChevronRight />
+      </Button>
+    </div>
         </div>
         {/* DADOS DA ENTREGA */}
         <Card className="mt-6 flex justify-around p-5">
