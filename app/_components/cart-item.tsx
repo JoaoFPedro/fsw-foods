@@ -7,15 +7,18 @@ import { ChevronLeft, ChevronRight, TrashIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useContext, useState } from "react";
 import Quantity from "./quantity";
+import { Card } from "./ui/card";
 
 interface CartItemProps {
   cartItem: CartProduts;
 }
 
 const CartItem = ({ cartItem }: CartItemProps) => {
-  const [quantity, setQuantity] = useState(1);
-  const { decreseProductQuantity, increaseProductQuantity, clearProductQuantity } =
-    useContext(CartContext);
+  const {
+    decreseProductQuantity,
+    increaseProductQuantity,
+    clearProductQuantity,
+  } = useContext(CartContext);
 
   const handleIncreaseQuantity = () => {
     increaseProductQuantity(cartItem.id);
@@ -25,7 +28,7 @@ const CartItem = ({ cartItem }: CartItemProps) => {
   };
   const handleClearDecreaseQuantity = () => {
     clearProductQuantity(cartItem.id);
-  }
+  };
   return (
     <div className="flex items-center justify-between pb-3">
       <div className="flex items-center space-x-2">
@@ -41,7 +44,9 @@ const CartItem = ({ cartItem }: CartItemProps) => {
           <h4 className="text-xs">{cartItem.name}</h4>
           <div className="flex gap-1">
             <h4 className="text-sm font-semibold">
-              {formatCurrency(calculatedProductTotalPrice(cartItem) * cartItem.quantity)}
+              {formatCurrency(
+                calculatedProductTotalPrice(cartItem) * cartItem.quantity,
+              )}
             </h4>
 
             {/* PRECO ORIGINAL */}
@@ -69,15 +74,14 @@ const CartItem = ({ cartItem }: CartItemProps) => {
             </Button>
           </div>
         </div>
-        
       </div>
       <Button
-              size="icon"
-              variant="ghost"
-              className="h-6 w-6 border border-solid border-muted-foreground relative left-4 items-center "
-            >
-              <TrashIcon onClick={handleClearDecreaseQuantity} />
-            </Button>
+        size="icon"
+        variant="ghost"
+        className="relative left-4 h-6 w-6 items-center border border-solid border-muted-foreground"
+      >
+        <TrashIcon onClick={handleClearDecreaseQuantity} />
+      </Button>
     </div>
   );
 };
