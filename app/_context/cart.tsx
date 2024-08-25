@@ -40,11 +40,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const totalPrice = useMemo(() => {
     return products.reduce((acc, products) => {
-      return acc + calculatedProductTotalPrice(products) * products.quantity
+      return parseFloat((acc + calculatedProductTotalPrice(products) * products.quantity).toFixed(2))
     },0)
   },[products])
 
-  const totalDiscounts = subTotalPrice - totalPrice
+  const totalDiscounts = parseFloat((subTotalPrice - totalPrice).toFixed(2))
 
   const addProductToCart = (product: Product, quantity: number) => {
     // Verifica se o produto já está no carrinho
