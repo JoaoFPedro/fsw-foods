@@ -2,7 +2,17 @@
 import Cart from "@/app/_components/cart";
 import DiscountBadge from "@/app/_components/discount-badge";
 import ProductList from "@/app/_components/product-list";
-import Quantity from "@/app/_components/quantity";
+
+import {
+  AlertDialogHeader,
+  AlertDialogFooter,
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from "@/app/_components/ui/alert-dialog";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
 
@@ -22,7 +32,14 @@ import {
   formatCurrency,
 } from "@/app/_helpers/price";
 import { Prisma, Product } from "@prisma/client";
-import { BikeIcon, ChevronLeft, ChevronRight, TimerIcon } from "lucide-react";
+
+import {
+  BikeIcon,
+  ChevronLeft,
+  ChevronRight,
+  Terminal,
+  TimerIcon,
+} from "lucide-react";
 import Image from "next/image";
 import { useContext, useState } from "react";
 
@@ -43,26 +60,41 @@ const ProductDetails = ({
   complementaryProducts,
 }: ProductDetailsProps) => {
   const [quantity, setQuantity] = useState(1);
-  const { addProductToCart, products } = useContext(CartContext);
+  const { addProductToCart, products, clearProducts } = useContext(CartContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
 
   const handleAddToCart = () => {
-    addProductToCart(product,quantity);
+    const isProductAlreadyOnCart = products.some(
+      (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
+    );
+    if (isProductAlreadyOnCart) {
+     
+      return setIsAlertVisible(true);
+    }
+    addProductToCart(product, quantity);
     setIsOpen(true);
-   
   };
-  
 
   const handleIncreaseQuantity = () => {
-      setQuantity((preValue) => preValue + 1);
-    };
-    const handleDecreaseQuantity = () => {
-      setQuantity((preValue) => {
-        if (preValue === 1) return 1;
-  
-        return preValue - 1;
-      });
-    };
+    setQuantity((preValue) => preValue + 1);
+  };
+  const handleDecreaseQuantity = () => {
+    setQuantity((preValue) => {
+      if (preValue === 1) return 1;
+
+      return preValue - 1;
+    });
+  };
+  const handleAlertDialogConfirmButton = () => {
+    if(products.length > 0){
+      clearProducts()
+    }
+    addProductToCart(product, quantity); 
+    setIsOpen(true);    
+
+  }
+
   return (
     <>
       <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5">
@@ -106,24 +138,24 @@ const ProductDetails = ({
 
           {/* QUANTIDADE */}
           <div className="flex items-center gap-2 text-center">
-      <Button
-        size="icon"
-        variant="ghost"
-        className="border border-solid border-muted-foreground w-8 h-8"
-        onClick={handleDecreaseQuantity}
-      >
-        <ChevronLeft />
-      </Button>
-      <span className="w-3">{quantity}</span>
-      <Button
-        size="icon"
-        variant="ghost"
-        className="border border-solid border-muted-foreground w-8 h-8"
-        onClick={handleIncreaseQuantity}
-      >
-        <ChevronRight />
-      </Button>
-    </div>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-8 w-8 border border-solid border-muted-foreground"
+              onClick={handleDecreaseQuantity}
+            >
+              <ChevronLeft />
+            </Button>
+            <span className="w-3">{quantity}</span>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-8 w-8 border border-solid border-muted-foreground"
+              onClick={handleIncreaseQuantity}
+            >
+              <ChevronRight />
+            </Button>
+          </div>
         </div>
         {/* DADOS DA ENTREGA */}
         <Card className="mt-6 flex justify-around p-5">
@@ -171,10 +203,26 @@ const ProductDetails = ({
       </div>
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent>
-          <SheetTitle >Sacola</SheetTitle>
+          <SheetTitle>Sacola</SheetTitle>
           <Cart />
         </SheetContent>
       </Sheet>
+
+      <AlertDialog open={isAlertVisible} onOpenChange={setIsAlertVisible}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel >Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleAlertDialogConfirmButton}>Continue</AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </>
   );
 };
