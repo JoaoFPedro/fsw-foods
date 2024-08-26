@@ -7,15 +7,18 @@ import { ChevronLeft, ChevronRight, TrashIcon } from "lucide-react";
 import { Button } from "./ui/button";
 import { useContext, useState } from "react";
 import Quantity from "./quantity";
+import { Card } from "./ui/card";
 
 interface CartItemProps {
   cartItem: CartProduts;
 }
 
 const CartItem = ({ cartItem }: CartItemProps) => {
-  const [quantity, setQuantity] = useState(1);
-  const { decreseProductQuantity, increaseProductQuantity, clearProductQuantity } =
-    useContext(CartContext);
+  const {
+    decreseProductQuantity,
+    increaseProductQuantity,
+    clearProductQuantity,
+  } = useContext(CartContext);
 
   const handleIncreaseQuantity = () => {
     increaseProductQuantity(cartItem.id);
@@ -25,11 +28,11 @@ const CartItem = ({ cartItem }: CartItemProps) => {
   };
   const handleClearDecreaseQuantity = () => {
     clearProductQuantity(cartItem.id);
-  }
+  };
   return (
-    <div className="flex items-center justify-between pb-3">
+    <div className="flex items-center justify-between pb-5">
       <div className="flex items-center space-x-2">
-        <div className="relative h-20 w-20">
+        <div className="relative  h-16 w-16">
           <Image
             src={cartItem.imageUrl}
             alt={cartItem.name}
@@ -37,47 +40,51 @@ const CartItem = ({ cartItem }: CartItemProps) => {
             className="rounded-lg object-cover"
           />
         </div>
-        <div className="space-y-1">
+        <div className="space-y-1 whitespace-nowrap">
           <h4 className="text-xs">{cartItem.name}</h4>
-          <div className="flex gap-1">
+          <div className="flex items-center gap-1">
             <h4 className="text-sm font-semibold">
-              {formatCurrency(calculatedProductTotalPrice(cartItem) * cartItem.quantity)}
+              {formatCurrency(
+                calculatedProductTotalPrice(cartItem) * cartItem.quantity,
+              )}
             </h4>
 
             {/* PRECO ORIGINAL */}
             {cartItem.discountPercentage > 0 && (
-              <span className="text-sm text-muted-foreground line-through">
+              <span className="text-xs text-muted-foreground line-through">
                 {formatCurrency(Number(cartItem.price) * cartItem.quantity)}
               </span>
             )}
           </div>
-          <div className="flex items-center gap-2 text-center">
+          <div className="flex items-center text-center">
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 border border-solid border-muted-foreground"
+              className="h-7 w-7 border border-solid border-muted-foreground"
             >
               <ChevronLeft onClick={handleDecreaseQuantity} />
             </Button>
-            <span className="w-3">{cartItem.quantity}</span>
+            <p className="block w-8 text-xs">{cartItem.quantity}</p>
             <Button
               size="icon"
               variant="ghost"
-              className="h-8 w-8 border border-solid border-muted-foreground"
+              className="h-7 w-7 border border-solid border-muted-foreground"
             >
               <ChevronRight onClick={handleIncreaseQuantity} />
             </Button>
           </div>
         </div>
-        
       </div>
-      <Button
-              size="icon"
-              variant="ghost"
-              className="h-6 w-6 border border-solid border-muted-foreground relative left-4 items-center "
-            >
-              <TrashIcon onClick={handleClearDecreaseQuantity} />
-            </Button>
+<div>
+<Button
+        size="icon"
+        variant="ghost"
+        className="relative left-4 h-6 w-6 items-center border border-solid border-muted-foreground"
+        onClick={handleClearDecreaseQuantity}
+      >
+        <TrashIcon size={16} />
+      </Button>
+</div>
     </div>
   );
 };
