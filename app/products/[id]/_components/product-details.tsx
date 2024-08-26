@@ -211,15 +211,14 @@ const ProductDetails = ({
       <AlertDialog open={isAlertVisible} onOpenChange={setIsAlertVisible}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+            <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
+             Adicionar um produto de outro restaurante irá limpar os produtos ja existentes no carrinho.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel >Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={handleAlertDialogConfirmButton}>Continue</AlertDialogAction>
+            <AlertDialogCancel >Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleAlertDialogConfirmButton}>Continuar</AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
