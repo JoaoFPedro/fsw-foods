@@ -59,7 +59,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   const totalPrice = useMemo(() => {
     return products.reduce((acc, products) => {
       return parseFloat((acc + calculatedProductTotalPrice(products) * products.quantity).toFixed(2))
-    },0)
+    },0) 
   },[products])
 
   const totalDiscounts = parseFloat((subTotalPrice - totalPrice).toFixed(2))
