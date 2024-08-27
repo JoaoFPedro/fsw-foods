@@ -17,7 +17,15 @@ export interface CartProduts extends Prisma.ProductGetPayload<{
 
 interface ICartContext {
   products: CartProduts[];
-  addProductToCart: (product: Product, quantity: number) => void;
+  addProductToCart: (product: Prisma.ProductGetPayload<{
+    include:{
+      restaurant:{
+        select:{
+          deliveryFee: true
+        }
+      }
+    }
+  }>, quantity: number) => void;
   decreseProductQuantity: (productId: string) => void;
   increaseProductQuantity: (productId: string) => void;
   clearProductQuantity: (productId: string) => void;
@@ -56,7 +64,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const totalDiscounts = parseFloat((subTotalPrice - totalPrice).toFixed(2))
 
-  const addProductToCart = (product: Product, quantity: number) => {
+  const addProductToCart = (product: Prisma.ProductGetPayload<{
+    include:{
+      restaurant:{
+        select:{
+          deliveryFee: true
+        }
+      }
+    }
+  }>,
+quantity: number) => {
     // Verifica se o produto já está no carrinho
     const isProductAlreadyOnCart = products.some(
       (cartProduct) => cartProduct.id === product.id,
