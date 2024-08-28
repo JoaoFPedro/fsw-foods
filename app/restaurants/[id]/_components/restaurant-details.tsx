@@ -112,11 +112,7 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
         <ProductList products={restaurant.products} />
       </div>
 
-      <Card>
-      <h2 className="text-xl font-semibold">
-              {formatCurrency(calculatedProductTotalPrice(restaurant.products[2]))}
-            </h2>
-      </Card>
+   
       
     </div>
   );
