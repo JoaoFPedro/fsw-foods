@@ -36,7 +36,7 @@ interface RestaurantDetailsProps {
 }
 
 const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
-  console.log("CATEGORIES", restaurant.categories[2]);
+
   return (
     <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5 ">
       {/* RESTAURANT */}
@@ -117,6 +117,7 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
               {formatCurrency(calculatedProductTotalPrice(restaurant.products[2]))}
             </h2>
       </Card>
+      
     </div>
   );
 };
