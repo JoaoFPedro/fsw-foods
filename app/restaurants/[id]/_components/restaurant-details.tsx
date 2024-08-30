@@ -1,26 +1,29 @@
 import ProductList from "@/app/_components/product-list";
 import { Button } from "@/app/_components/ui/button";
 import { Card } from "@/app/_components/ui/card";
-import { calculatedProductTotalPrice, formatCurrency } from "@/app/_helpers/price";
+import {
+  calculatedProductTotalPrice,
+  formatCurrency,
+} from "@/app/_helpers/price";
 import { Prisma, Restaurant } from "@prisma/client";
 import { BikeIcon, StarIcon, TimerIcon } from "lucide-react";
 import Image from "next/image";
 interface RestaurantDetailsProps {
   restaurant: Prisma.RestaurantGetPayload<{
     include: {
-      categories:{
-        include:{
+      categories: {
+        include: {
           products: {
             include: {
               restaurant: {
-                select:{
-                  name: true,
-                },
-              },
-            },
-          },
-        },
-      },
+                select: {
+                  name: true;
+                };
+              };
+            };
+          };
+        };
+      };
       products: {
         take: 10;
         include: {
@@ -36,9 +39,8 @@ interface RestaurantDetailsProps {
 }
 
 const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
-
   return (
-    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-5 ">
+    <div className="relative z-50 mt-[-1.5rem] rounded-tl-3xl rounded-tr-3xl bg-white p-5 py-12">
       {/* RESTAURANT */}
       <div className="flex items-center justify-between gap-1">
         <div className="flex items-center gap-[0.375rem]">
@@ -111,9 +113,6 @@ const RestaurantDetails = ({ restaurant }: RestaurantDetailsProps) => {
 
         <ProductList products={restaurant.products} />
       </div>
-
-   
-      
     </div>
   );
 };
