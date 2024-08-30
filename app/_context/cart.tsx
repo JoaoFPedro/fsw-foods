@@ -36,6 +36,7 @@ interface ICartContext {
   clearProducts: () => void;
   totalPrice: number;
   subTotalPrice: number;
+  totalQuantity: number
   totalDiscounts: number;
 }
 
@@ -48,6 +49,7 @@ export const CartContext = createContext<ICartContext>({
   clearProducts: () => {},
   totalPrice: 0,
   subTotalPrice: 0,
+  totalQuantity: 0,
   totalDiscounts: 0,
 });
 
@@ -68,6 +70,12 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
           calculatedProductTotalPrice(products) * products.quantity
         ).toFixed(2),
       );
+    }, 0);
+  }, [products]);
+
+  const totalQuantity = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + product.quantity;
     }, 0);
   }, [products]);
 
@@ -159,6 +167,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         totalPrice,
         totalDiscounts,
         clearProducts,
+        totalQuantity
       }}
     >
       {children}
