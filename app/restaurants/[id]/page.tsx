@@ -56,7 +56,7 @@ const RestaurantPage = async ({ params: { id } }: RestaurantPageProps) => {
 
     <RestaurantDetails restaurant={restaurants} />
     
-    <CartBanner restaurant={restaurants}/>
+    <CartBanner restaurant={restaurants} />
     </>
   );
 };
