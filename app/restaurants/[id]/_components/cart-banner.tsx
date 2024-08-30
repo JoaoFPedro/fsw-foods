@@ -21,8 +21,8 @@ const CartBanner = ({ restaurant }: CartBannerProps) => {
     <div className="fixed bottom-0 left-0 z-50 w-full bg-white p-5 pt-3">
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <span>Total sem a entrega</span>
-          <span>{formatCurrency(totalPrice)}</span>
+          <span className="text-muted-foreground text-sm">Total sem a entrega</span>
+          <span className="font-bold">{formatCurrency(totalPrice)}/ {products.length}</span>
         </div>
         <Button>Ver sacola</Button>
       </div>

@@ -26,7 +26,7 @@ const CartItem = ({ cartItem }: CartItemProps) => {
   const handleDecreaseQuantity = () => {
     decreseProductQuantity(cartItem.id);
   };
-  const handleClearDecreaseQuantity = () => {
+  const handleClearDProductQuantity = () => {
     clearProductQuantity(cartItem.id);
   };
   return (
@@ -80,7 +80,7 @@ const CartItem = ({ cartItem }: CartItemProps) => {
         size="icon"
         variant="ghost"
         className="relative left-4 h-6 w-6 items-center border border-solid border-muted-foreground"
-        onClick={handleClearDecreaseQuantity}
+        onClick={handleClearDProductQuantity}
       >
         <TrashIcon size={16} />
       </Button>
