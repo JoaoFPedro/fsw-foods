@@ -9,20 +9,20 @@ const Cart = () => {
   const { products, subTotalPrice, totalPrice, totalDiscounts } =
     useContext(CartContext);
   return (
-    <div className="flex flex-col h-full py-5 ">
-    <div className="flex-auto space-y-4">
-      {products.map((product) => (
-        <CartItem key={product.id} cartItem={product} />
-      ))}
-</div>
+    <div className="flex h-full flex-col py-5">
+      <div className="flex-auto space-y-4">
+        {products.map((product) => (
+          <CartItem key={product.id} cartItem={product} />
+        ))}
+      </div>
       <div className="mt-6">
         <Card>
           <CardContent className="p-5">
-            <div className="flex items-center justify-between border-b pb-2 text-xs ">
+            <div className="flex items-center justify-between border-b pb-2 text-xs">
               <span className="text-muted-foreground">Subtotal</span>
               <span>{formatCurrency(subTotalPrice)}</span>
             </div>
-            <div className="flex justify-between pb-2 pt-2 text-xs  border-b">
+            <div className="flex justify-between border-b pb-2 pt-2 text-xs">
               <h1 className="text-muted-foreground">Entrega</h1>
               <span>{formatCurrency(totalDiscounts)}</span>
             </div>
@@ -43,8 +43,7 @@ const Cart = () => {
           </CardContent>
         </Card>
       </div>
-      <Button className="w-full mt-6">Finalizar pedido</Button>
-    
+      <Button className="mt-6 w-full">Finalizar pedido</Button>
     </div>
   );
 };
