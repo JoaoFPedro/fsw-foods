@@ -24,7 +24,6 @@ import { useState } from "react";
 import MenuSideBard from "./menu-side-bar";
 
 const Header = () => {
- 
   const router = useRouter();
 
   const handleClick = () => {
@@ -55,9 +54,8 @@ const Header = () => {
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
-    <MenuSideBard/>
+          <MenuSideBard />
 
-         
           <SheetFooter>
             <SheetClose asChild>
               <Button type="submit">Save changes</Button>
