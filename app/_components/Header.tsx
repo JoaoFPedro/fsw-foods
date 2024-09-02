@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import {
@@ -10,27 +10,38 @@ import {
 } from "lucide-react";
 import {
   Sheet,
- 
+  SheetClose,
   SheetContent,
-  
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
 import { useRouter } from "next/navigation";
-
+import { signIn, signOut, useSession } from "next-auth/react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useState } from "react";
+import MenuSideBard from "./menu-side-bar";
 
 const Header = () => {
-  const router = useRouter()
+ 
+  const router = useRouter();
 
-  const handleClick =() => {
-    router.push('/')
-  }
+  const handleClick = () => {
+    router.push("/");
+  };
+
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex justify-between px-5 pt-6 cursor-pointer" >
-      <Image src="/Logo.png" alt="FSW Foods" height={30} width={100} onClick={handleClick}/>
-      <Sheet>
+    <div className="flex cursor-pointer justify-between px-5 pt-6">
+      <Image
+        src="/Logo.png"
+        alt="FSW Foods"
+        height={30}
+        width={100}
+        onClick={handleClick}
+      />
+      <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetTrigger asChild>
           <Button
             size="icon"
@@ -44,28 +55,13 @@ const Header = () => {
           <SheetHeader>
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
-          <div className="mb-4 flex justify-between border-b-2 border-#EEEEEE">
-            <span className="">Olá, Faça seu login!</span>
-            <div>
-              <LogInIcon className="text-xl" />
-            </div>
-          </div>
-          <div className="mb-4 w-full flex items-center space-x-2 rounded-full px-4  text-sm hover:bg-red-600 hover:text-white">
-            <HomeIcon size={16} />
-            <span>Inicio</span>
-          </div>
-          <div className="mb-4 w-full flex items-center space-x-2 rounded-full px-4  text-sm hover:bg-red-600 hover:text-white">
-            <UtensilsIcon size={16}/>
-            <span>Meus Pedidos</span>
-          </div>
-          <div className="mb-4 w-full flex items-center space-x-2 rounded-full px-4 text-sm hover:bg-red-600 hover:text-white">
-            <HeartIcon size={16}/>
-            <span>Restaurantes Favoritos</span>
-          </div>
+    <MenuSideBard/>
+
+         
           <SheetFooter>
-            {/* <SheetClose asChild>
+            <SheetClose asChild>
               <Button type="submit">Save changes</Button>
-            </SheetClose> */}
+            </SheetClose>
           </SheetFooter>
         </SheetContent>
       </Sheet>
