@@ -24,7 +24,7 @@ const MenuSideBard = () => {
           </div>
         </div>
       ) : (
-        <div className="border-#EEEEEE mb-4 mt-4 flex justify-between border-b-2">
+        <div className="border-#EEEEEE pb-4 mb-4 mt-4 flex justify-between border-b-2">
           <span className="">Olá, Faça seu login!</span>
           <div>
             <LogInIcon onClick={() => signIn()} className="text-xl" />
