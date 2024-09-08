@@ -77,7 +77,8 @@ const MenuSideBard = () => {
             <span>Refrigerentes</span>
           </div>
         </div>
-        <Button onClick={() => signOut()}>Deslogar</Button>
+        {data?.user && <Button onClick={() => signOut()}>Deslogar</Button>}
+        
       
     </div>
   );
