@@ -8,6 +8,8 @@ export interface CartProduts
     include: {
       restaurant: {
         select: {
+          id: true;
+          deliveryTimeMinutes: true;
           deliveryFee: true;
         };
       };
@@ -23,6 +25,8 @@ interface ICartContext {
       include: {
         restaurant: {
           select: {
+            id: true;
+            deliveryTimeMinutes: true;
             deliveryFee: true;
           };
         };

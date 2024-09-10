@@ -69,7 +69,6 @@ const ProductDetails = ({
       (cartProduct) => cartProduct.restaurantId !== product.restaurantId,
     );
     if (isProductAlreadyOnCart) {
-     
       return setIsAlertVisible(true);
     }
     addProductToCart(product, quantity);
@@ -87,13 +86,12 @@ const ProductDetails = ({
     });
   };
   const handleAlertDialogConfirmButton = () => {
-    if(products.length > 0){
-      clearProducts()
+    if (products.length > 0) {
+      clearProducts();
     }
-    addProductToCart(product, quantity); 
-    setIsOpen(true);    
-
-  }
+    addProductToCart(product, quantity);
+    setIsOpen(true);
+  };
 
   return (
     <>
@@ -204,7 +202,11 @@ const ProductDetails = ({
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
         <SheetContent>
           <SheetTitle>Sacola</SheetTitle>
-          <Cart />
+          {products[0] === undefined ? (
+            <h1>Sua sacola esta vazia</h1>
+          ) : (
+            <Cart />
+          )}
         </SheetContent>
       </Sheet>
 
@@ -213,12 +215,15 @@ const ProductDetails = ({
           <AlertDialogHeader>
             <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
             <AlertDialogDescription>
-             Adicionar um produto de outro restaurante irá limpar os produtos ja existentes no carrinho.
+              Adicionar um produto de outro restaurante irá limpar os produtos
+              ja existentes no carrinho.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel >Cancelar</AlertDialogCancel>
-            <AlertDialogAction onClick={handleAlertDialogConfirmButton}>Continuar</AlertDialogAction>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={handleAlertDialogConfirmButton}>
+              Continuar
+            </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
