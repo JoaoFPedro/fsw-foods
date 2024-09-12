@@ -8,6 +8,7 @@ import OrderItem from "./_components/order-item";
 const MyOrdersPage = async () => {
   const session = await getServerSession(authOptions);
   if (!session?.user.id) {
+    
     return redirect("/");
   }
   const orders = await db.order.findMany({
@@ -16,8 +17,13 @@ const MyOrdersPage = async () => {
     },
     include: {
       restaurant: true,
-      products: true,
+      products: {
+        include:{
+          product: true
+        }
+      }
     },
+    
   });
   return (
     <>
