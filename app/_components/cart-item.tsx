@@ -1,4 +1,4 @@
-import { CartContext, CartProduts } from "@/app/_context/cart";
+import { CartContext, CartProduct} from "@/app/_context/cart";
 import Image from "next/image";
 import CategoryItem from "./category-item";
 import { calculatedProductTotalPrice, formatCurrency } from "../_helpers/price";
@@ -10,24 +10,24 @@ import Quantity from "./quantity";
 import { Card } from "./ui/card";
 
 interface CartItemProps {
-  cartItem: CartProduts;
+  cartItem: CartProduct;
 }
 
 const CartItem = ({ cartItem }: CartItemProps) => {
   const {
-    decreseProductQuantity,
+    decreaseProductQuantity,
     increaseProductQuantity,
-    clearProductQuantity,
+    clearCart,
   } = useContext(CartContext);
 
   const handleIncreaseQuantity = () => {
     increaseProductQuantity(cartItem.id);
   };
   const handleDecreaseQuantity = () => {
-    decreseProductQuantity(cartItem.id);
+    decreaseProductQuantity(cartItem.id);
   };
   const handleClearDProductQuantity = () => {
-    clearProductQuantity(cartItem.id);
+    clearCart();
   };
   return (
     <div className="flex items-center justify-between pb-5">
