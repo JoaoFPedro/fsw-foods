@@ -30,12 +30,12 @@ const MyOrdersPage = async () => {
       <Header />
       <div className="p-6">
         <h1 className="pb-4">Meus Pedidos</h1>
-        <div>
+        
           {orders.map((order) => (
-            <OrderItem key={order.id} order={order} />
+            <div key={order.id} className="pb-4"><OrderItem  order={order} /> </div>
           ))}
         </div>
-      </div>
+     
     </>
   );
 };
