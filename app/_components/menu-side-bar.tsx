@@ -61,10 +61,16 @@ const MenuSideBard = () => {
       )}
 
       <div className="b-2 pt-3">
-        <div className="mb-4 flex w-full items-center space-x-2 rounded-full px-4 text-sm hover:bg-red-600 hover:text-white">
-          <HomeIcon size={16} />
-          <span>Inicio</span>
-        </div>
+        <Button
+          variant="ghost"
+          className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+          asChild
+        >
+          <Link href={"/my-orders"}>
+            <HomeIcon size={16} />
+            <span>Inicio</span>
+          </Link>
+        </Button>
 
         {status === "authenticated" && (
           <>
@@ -78,10 +84,16 @@ const MenuSideBard = () => {
                 <span>Meus Pedidos</span>
               </Link>
             </Button>
-            <div className="mb-6 flex w-full items-center space-x-2 rounded-full px-4 text-sm hover:bg-red-600 hover:text-white">
-              <HeartIcon size={16} />
-              <span>Restaurantes Favoritos</span>
-            </div>
+            <Button
+              variant="ghost"
+              className="w-full justify-start space-x-3 rounded-full text-sm font-normal"
+              asChild
+            >
+              <Link href={"/my-orders"}>
+                <HeartIcon size={16} />
+                <span>Restaurantes Favoritos</span>
+              </Link>
+            </Button>
           </>
         )}
       </div>

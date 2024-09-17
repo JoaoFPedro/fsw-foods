@@ -1,13 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import {
-  HeartIcon,
-  HomeIcon,
-  LogInIcon,
-  MenuIcon,
-  UtensilsIcon,
-} from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import {
   Sheet,
   SheetClose,
@@ -18,8 +12,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { useRouter } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
 import { useState } from "react";
 import MenuSideBard from "./menu-side-bar";
 
