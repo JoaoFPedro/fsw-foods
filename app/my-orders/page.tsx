@@ -8,7 +8,6 @@ import OrderItem from "./_components/order-item";
 const MyOrdersPage = async () => {
   const session = await getServerSession(authOptions);
   if (!session?.user.id) {
-    
     return redirect("/");
   }
   const orders = await db.order.findMany({
@@ -18,24 +17,24 @@ const MyOrdersPage = async () => {
     include: {
       restaurant: true,
       products: {
-        include:{
-          product: true
-        }
-      }
+        include: {
+          product: true,
+        },
+      },
     },
-    
   });
   return (
     <>
       <Header />
       <div className="p-6">
         <h1 className="pb-4">Meus Pedidos</h1>
-        
-          {orders.map((order) => (
-            <div key={order.id} className="pb-4"><OrderItem  order={order} /> </div>
-          ))}
-        </div>
-     
+
+        {orders.map((order) => (
+          <div key={order.id} className="pb-4">
+            <OrderItem order={order} />{" "}
+          </div>
+        ))}
+      </div>
     </>
   );
 };
