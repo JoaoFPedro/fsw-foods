@@ -1,13 +1,7 @@
 "use client";
 import Image from "next/image";
 import { Button } from "./ui/button";
-import {
-  HeartIcon,
-  HomeIcon,
-  LogInIcon,
-  MenuIcon,
-  UtensilsIcon,
-} from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import {
   Sheet,
   SheetClose,
@@ -18,8 +12,7 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { useRouter } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+
 import { useState } from "react";
 import MenuSideBard from "./menu-side-bar";
 
@@ -32,12 +25,12 @@ const Header = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex cursor-pointer justify-between px-5 pt-6">
+    <div className="flex cursor-pointer justify-between px-5  items-center" >
       <Image
         src="/Logo.png"
         alt="FSW Foods"
-        height={30}
-        width={100}
+        height={64}
+        width={150 }
         onClick={handleClick}
       />
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -55,7 +48,6 @@ const Header = () => {
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
           <MenuSideBard />
-
           <SheetFooter>
             <SheetClose asChild>
               <Button type="submit">Save changes</Button>

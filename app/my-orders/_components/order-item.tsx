@@ -1,13 +1,17 @@
+"use client"
 import { Avatar, AvatarImage } from "@/app/_components/ui/avatar";
 import { Button } from "@/app/_components/ui/button";
 import { Card, CardContent } from "@/app/_components/ui/card";
 import { Separator } from "@/app/_components/ui/separator";
+import { CartContext } from "@/app/_context/cart";
 import { formatCurrency } from "@/app/_helpers/price";
 import { OrderStatus, Prisma } from "@prisma/client";
 import { ChevronRight } from "lucide-react";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useContext } from "react";
 
 interface OrderItemProps {
   order: Prisma.OrderGetPayload<{
@@ -37,6 +41,21 @@ const OrderItem = ({ order }: OrderItemProps) => {
       case "CANCELED":
         return "Cancelado";
     }
+  };
+  const {addProductToCart} = useContext(CartContext)
+  const router = useRouter()
+  const handleRedoOrderClick = () => {
+    for (const orderProduct of order.products) {
+      addProductToCart({
+        product: {
+          ...orderProduct.product,
+          restaurant: order.restaurant,
+          quantity: orderProduct.quantity,
+        },
+      });
+    }
+
+    router.push(`/restaurants/${order.restaurantId}`);
   };
   return (
     <Card>
@@ -71,7 +90,7 @@ const OrderItem = ({ order }: OrderItemProps) => {
         <Separator className="" />
         <div className="pt-3 flex justify-between items-center">
         <span className="text-sm">{formatCurrency( Number(order.totalPrice))}</span>
-        <Button size='sm' disabled={order.status !== 'COMPLETED'} variant='ghost' className="text-primary text-sm">
+        <Button size='sm' disabled={order.status !== 'COMPLETED'} variant='ghost' className="text-primary text-sm" onClick={handleRedoOrderClick}>
           <span>Refazer pedido</span>
         </Button>
         </div>

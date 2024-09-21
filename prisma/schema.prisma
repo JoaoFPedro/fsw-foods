@@ -105,7 +105,7 @@ model Order {
   restaurantId   String
   deliveryFee    Decimal     @db.Decimal(10, 2)
   deliveryTimeMinutes   Int
-  subTotalPrice  Decimal     @db.Decimal(10, 2)
+  subtotalPrice  Decimal     @db.Decimal(10, 2)
   totalPrice     Decimal     @db.Decimal(10, 2)
   totalDiscounts Decimal     @db.Decimal(10, 2)
   createdAt      DateTime    @default(now())
