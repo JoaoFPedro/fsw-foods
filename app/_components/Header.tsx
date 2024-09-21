@@ -25,12 +25,12 @@ const Header = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="flex cursor-pointer justify-between px-5 pt-6 items-center" >
+    <div className="flex cursor-pointer justify-between px-5  items-center" >
       <Image
         src="/Logo.png"
         alt="FSW Foods"
-        height={150}
-        width={150}
+        height={64}
+        width={150 }
         onClick={handleClick}
       />
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -48,7 +48,6 @@ const Header = () => {
             <SheetTitle>Menu</SheetTitle>
           </SheetHeader>
           <MenuSideBard />
-
           <SheetFooter>
             <SheetClose asChild>
               <Button type="submit">Save changes</Button>

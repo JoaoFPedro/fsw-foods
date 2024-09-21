@@ -30,8 +30,10 @@ const Home = async () => {
 
   return (
     <>
+    <div className="mt-3">
       <Header />
-      <div className="px-5 ">
+      </div>
+      <div className="px-5 pt-4 ">
         <Search />
       </div>
 
